@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtracker/pages/CreateProduct.dart';
 import 'package:foodtracker/pages/HomePage.dart';
 
 class CustomBottomNav extends StatefulWidget {
@@ -16,7 +17,7 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text('Index 1: Legg til', style: optionStyle),
+    CreateProduct(),
     Text('Index 2: Profil', style: optionStyle),
     Text('Index 3: Kurv', style: optionStyle),
   ];
