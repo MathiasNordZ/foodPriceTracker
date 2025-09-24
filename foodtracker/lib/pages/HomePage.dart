@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtracker/models/Product.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,20 +9,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> data = [
-    'Apple',
-    'Banana',
-    'Cherry',
-    'Date',
-    'Elderberry',
-    'Fig',
-    'Grapes',
-    'Honeydew',
-    'Kiwi',
-    'Lemon',
+  List<Product> data = [
+    Product(name: "Kylling", price: 150.0, quantity: 1, shop: "Rema 1000", producer: "Solvinge", unit: "kg"),
+    Product(name: "Gulrot", price: 20, quantity: 1, shop: "Coop", producer: "Bonden", unit: "kg"),
   ];
 
-  List<String> searchResults = [];
+  List<Product> searchResults = [];
 
   @override
   void initState() {
@@ -32,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void onQueryChanged(String query) {
     setState(() {
       searchResults = data
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -51,12 +44,21 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Center(
               child: ListView.builder(
-                itemCount: searchResults.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(searchResults[index]),
-                  );
-                }),
+  itemCount: searchResults.length,
+  itemBuilder: (context, index) {
+    final product = searchResults[index];
+    return ListTile(
+      title: Text(product.name),
+      subtitle: Text(
+        "Pris: ${product.price} NOK | "
+        "Mengde: ${product.quantity} ${product.unit} | "
+        "Kilopris: ${product.pricePerQuantity.toStringAsFixed(2)} NOK | "
+        "Butikk: ${product.shop} | "
+        "Produsent: ${product.producer} "
+      ),
+    );
+  },
+),
             )),
         ],
       )
